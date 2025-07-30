@@ -1,0 +1,544 @@
+
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+local Window = Rayfield:CreateWindow({
+    Name = "Brookhaven Fun Showcase",
+    LoadingTitle = "Loading magic...",
+    LoadingSubtitle = "Made by MATHEOOO312",
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = "BrookhavenFunShowcase"
+    }
+})
+
+local player = game.Players.LocalPlayer
+
+local movementTab = Window:CreateTab("Movement", 4483362458)
+local weatherTab  = Window:CreateTab("Weather", 4483362458)
+local funTab      = Window:CreateTab("Fun & Visual", 4483362458)
+local miscTab     = Window:CreateTab("Misc", 4483362458)
+
+
+movementTab:CreateButton({ Name = "Super Speed", Callback = function()
+    player.Character.Humanoid.WalkSpeed = 80
+    Rayfield:Notify({Title="Movement",Content="You are now super fast!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Super Jump", Callback = function()
+    player.Character.Humanoid.JumpPower = 150
+    Rayfield:Notify({Title="Movement",Content="Jump like a kangaroo!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Normal Speed", Callback = function()
+    player.Character.Humanoid.WalkSpeed = 16
+    Rayfield:Notify({Title="Movement",Content="Speed reset.",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Normal Jump", Callback = function()
+    player.Character.Humanoid.JumpPower = 50
+    Rayfield:Notify({Title="Movement",Content="Jump reset.",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Teleport to the Sky", Callback = function()
+    player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 300, 0)
+    Rayfield:Notify({Title="Movement",Content="To the sky!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Flip Character", Callback = function()
+    local root = player.Character:FindFirstChild("HumanoidRootPart")
+    if root then
+        root.CFrame = root.CFrame * CFrame.Angles(0, math.rad(180), 0)
+        Rayfield:Notify({Title="Movement", Content="Flipped!", Duration=2})
+    end
+end })
+movementTab:CreateButton({ Name = "Teleport to Random Player", Callback = function()
+    local players = game.Players:GetPlayers()
+    if #players > 1 then
+        local target
+        repeat
+            target = players[math.random(1, #players)]
+        until target ~= player
+        if target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+            player.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(2,0,2)
+            Rayfield:Notify({Title="Movement",Content="To "..target.Name,Duration=2})
+        end
+    else
+        Rayfield:Notify({Title="Movement",Content="No other players!",Duration=2})
+    end
+end })
+movementTab:CreateButton({ Name = "Super Tiny", Callback = function()
+    for _,v in ipairs(player.Character:GetChildren()) do
+        if v:IsA("BasePart") then v.Size = v.Size * 0.4 end
+    end
+    Rayfield:Notify({Title="Movement",Content="You are tiny!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Giant Size", Callback = function()
+    for _,v in ipairs(player.Character:GetChildren()) do
+        if v:IsA("BasePart") then v.Size = v.Size * 2 end
+    end
+    Rayfield:Notify({Title="Movement",Content="You are giant!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Rocket Jump", Callback = function()
+    player.Character.HumanoidRootPart.Velocity = Vector3.new(0,150,0)
+    Rayfield:Notify({Title="Movement",Content="Rocket jump!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Super Glide", Callback = function()
+    player.Character.HumanoidRootPart.Velocity = player.Character.HumanoidRootPart.CFrame.LookVector * 120
+    Rayfield:Notify({Title="Movement",Content="Glided forward!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Moon Gravity", Callback = function()
+    workspace.Gravity = 15
+    Rayfield:Notify({Title="Movement",Content="Moon gravity enabled!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Reset Gravity", Callback = function()
+    workspace.Gravity = 196.2
+    Rayfield:Notify({Title="Movement",Content="Gravity reset!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Slide Forward", Callback = function()
+    player.Character.HumanoidRootPart.Velocity = player.Character.HumanoidRootPart.CFrame.LookVector * 180
+    Rayfield:Notify({Title="Movement",Content="Sliding!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Teleport Spawn", Callback = function()
+    local spawn = workspace:FindFirstChild("SpawnLocation")
+    if spawn then
+        player.Character.HumanoidRootPart.CFrame = spawn.CFrame + Vector3.new(0,5,0)
+    else
+        player.Character.HumanoidRootPart.CFrame = CFrame.new(0,10,0)
+    end
+    Rayfield:Notify({Title="Movement",Content="Teleported to spawn!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Teleport Random Place", Callback = function()
+    player.Character.HumanoidRootPart.CFrame = CFrame.new(math.random(-500,500),30,math.random(-500,500))
+    Rayfield:Notify({Title="Movement",Content="Random teleport!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Auto Jump (Toggle)", Callback = function()
+    if not _G.AutoJump then
+        _G.AutoJump = true
+        Rayfield:Notify({Title="Movement",Content="AutoJump enabled!",Duration=2})
+        spawn(function()
+            while _G.AutoJump do
+                player.Character.Humanoid.Jump = true
+                wait(0.3)
+            end
+        end)
+    else
+        _G.AutoJump = false
+        Rayfield:Notify({Title="Movement",Content="AutoJump disabled!",Duration=2})
+    end
+end })
+movementTab:CreateButton({ Name = "Super Backflip", Callback = function()
+    player.Character.HumanoidRootPart.Velocity = -player.Character.HumanoidRootPart.CFrame.LookVector * 100 + Vector3.new(0,60,0)
+    Rayfield:Notify({Title="Movement",Content="Backflip!",Duration=2})
+end })
+movementTab:CreateButton({ Name = "Sit", Callback = function()
+    player.Character.Humanoid.Sit = true
+    Rayfield:Notify({Title="Movement",Content="Sitting!",Duration=2})
+end })
+
+
+weatherTab:CreateButton({ Name = "Night Mode", Callback = function()
+    game.Lighting.ClockTime = 0
+    Rayfield:Notify({Title="Weather",Content="It's night!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Day Mode", Callback = function()
+    game.Lighting.ClockTime = 14
+    Rayfield:Notify({Title="Weather",Content="It's day!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Foggy Weather", Callback = function()
+    game.Lighting.FogEnd = 60
+    game.Lighting.FogColor = Color3.fromRGB(200,200,200)
+    Rayfield:Notify({Title="Weather",Content="Fog everywhere!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Remove Fog", Callback = function()
+    game.Lighting.FogEnd = 100000
+    Rayfield:Notify({Title="Weather",Content="No more fog.",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Spooky Red Sky", Callback = function()
+    game.Lighting.Ambient = Color3.fromRGB(170,0,0)
+    Rayfield:Notify({Title="Weather",Content="Spooky red sky!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Reset Sky", Callback = function()
+    game.Lighting.Ambient = Color3.fromRGB(128,128,128)
+    Rayfield:Notify({Title="Weather",Content="Sky reset.",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Lightning Strike", Callback = function()
+    local pos = player.Character.HumanoidRootPart.Position + Vector3.new(0, 10, 0)
+    local part = Instance.new("Part", workspace)
+    part.Size = Vector3.new(1, 20, 1)
+    part.Anchored = true
+    part.BrickColor = BrickColor.new("New Yeller")
+    part.Material = Enum.Material.Neon
+    part.Position = pos
+    game:GetService("Debris"):AddItem(part, 0.5)
+    local s = Instance.new("Sound", part)
+    s.SoundId = "rbxassetid://138186576"
+    s:Play()
+    Rayfield:Notify({Title="Weather", Content="BOOM!", Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Rainbow Sky", Callback = function()
+    local colors = {
+        Color3.fromRGB(255,0,0), Color3.fromRGB(255,127,0), Color3.fromRGB(255,255,0),
+        Color3.fromRGB(0,255,0), Color3.fromRGB(0,0,255), Color3.fromRGB(75,0,130)
+    }
+    for i=1,12 do
+        game.Lighting.Ambient = colors[(i-1)%#colors+1]
+        wait(0.2)
+    end
+    game.Lighting.Ambient = Color3.fromRGB(128,128,128)
+    Rayfield:Notify({Title="Weather",Content="Rainbow sky!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Thunderstorm", Callback = function()
+    for i=1,5 do
+        game.Lighting.ClockTime = 0
+        wait(0.2)
+        game.Lighting.ClockTime = 10
+        wait(0.2)
+        local s = Instance.new("Sound",workspace)
+        s.SoundId = "rbxassetid://138186576"
+        s.Volume = 2
+        s:Play()
+        game:GetService("Debris"):AddItem(s, 1)
+    end
+    Rayfield:Notify({Title="Weather",Content="Thunderstorm!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Super Brightness", Callback = function()
+    game.Lighting.Brightness = 8
+    Rayfield:Notify({Title="Weather",Content="Super bright!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Super Darkness", Callback = function()
+    game.Lighting.Brightness = 0.1
+    Rayfield:Notify({Title="Weather",Content="Super dark!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Restore Brightness", Callback = function()
+    game.Lighting.Brightness = 2
+    Rayfield:Notify({Title="Weather",Content="Brightness reset!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Purple Fog", Callback = function()
+    game.Lighting.FogColor = Color3.fromRGB(128,0,128)
+    Rayfield:Notify({Title="Weather",Content="Purple fog!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Green Sky", Callback = function()
+    game.Lighting.Ambient = Color3.fromRGB(0,255,80)
+    Rayfield:Notify({Title="Weather",Content="Green sky!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Orange Sky", Callback = function()
+    game.Lighting.Ambient = Color3.fromRGB(255,140,0)
+    Rayfield:Notify({Title="Weather",Content="Orange sky!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Snow Mode", Callback = function()
+    game.Lighting.FogColor = Color3.fromRGB(240,240,255)
+    game.Lighting.FogEnd = 120
+    Rayfield:Notify({Title="Weather",Content="It's snowing!",Duration=2})
+end })
+weatherTab:CreateButton({ Name = "Blackout", Callback = function()
+    game.Lighting.Brightness = 0
+    game.Lighting.Ambient = Color3.fromRGB(0,0,0)
+    Rayfield:Notify({Title="Weather",Content="Total blackout!",Duration=2})
+end })
+
+
+funTab:CreateButton({ Name = "Rainbow Body", Callback = function()
+    for _,v in ipairs(player.Character:GetChildren()) do
+        if v:IsA("BasePart") then v.Color = Color3.new(math.random(),math.random(),math.random()) end
+    end
+    Rayfield:Notify({Title="Fun",Content="Walking rainbow!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Sparkle Effect", Callback = function()
+    local s = Instance.new("Sparkles",player.Character.HumanoidRootPart)
+    Rayfield:Notify({Title="Fun",Content="You sparkle!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Fire Effect", Callback = function()
+    local f = Instance.new("Fire",player.Character.HumanoidRootPart)
+    f.Size = 5
+    Rayfield:Notify({Title="Fun",Content="You're on fire!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Smoke Effect", Callback = function()
+    local sm = Instance.new("Smoke",player.Character.HumanoidRootPart)
+    sm.Opacity = 0.7
+    Rayfield:Notify({Title="Fun",Content="Smokey!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Music: Party", Callback = function()
+    for _, child in ipairs(workspace:GetChildren()) do
+        if child:IsA("Sound") and child.Name == "PartyMusic" then
+            child:Destroy()
+        end
+    end
+    local s = Instance.new("Sound", workspace)
+    s.Name = "PartyMusic"
+    s.SoundId = "rbxassetid://9129219320"
+    s.Volume = 1
+    s.Looped = false
+    s:Play()
+    Rayfield:Notify({Title="Fun",Content="Party music playing!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Ragdoll", Callback = function()
+    player.Character.Humanoid.PlatformStand = true
+    Rayfield:Notify({Title="Fun",Content="You are ragdoll!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Stand Up", Callback = function()
+    player.Character.Humanoid.PlatformStand = false
+    Rayfield:Notify({Title="Fun",Content="Back to normal!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Confetti Burst", Callback = function()
+    local effect = Instance.new("ParticleEmitter")
+    effect.Texture = "rbxassetid://248625108"
+    effect.Lifetime = NumberRange.new(1)
+    effect.Rate = 500
+    effect.Speed = NumberRange.new(15)
+    effect.Parent = player.Character.HumanoidRootPart
+    Rayfield:Notify({Title="Fun", Content="Confetti burst!", Duration=2})
+    task.wait(1)
+    effect.Enabled = false
+    effect:Destroy()
+end })
+funTab:CreateButton({ Name = "Clone Yourself", Callback = function()
+    local clone = player.Character:Clone()
+    clone.Parent = workspace
+    clone:SetPrimaryPartCFrame(player.Character.HumanoidRootPart.CFrame * CFrame.new(3,0,0))
+    Rayfield:Notify({Title="Fun",Content="Clone spawned!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Head Spin", Callback = function()
+    local head = player.Character:FindFirstChild("Head")
+    if head then
+        for i=1,10 do
+            head.CFrame = head.CFrame * CFrame.Angles(0,math.rad(36),0)
+            wait(0.05)
+        end
+    end
+    Rayfield:Notify({Title="Fun",Content="Head spin!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Flashlight On", Callback = function()
+    if not player.Character.Head:FindFirstChild("MyFlashlight") then
+        local l = Instance.new("PointLight", player.Character.Head)
+        l.Name = "MyFlashlight"
+        l.Brightness = 3
+        l.Range = 24
+        Rayfield:Notify({Title="Fun",Content="Flashlight ON!",Duration=2})
+    end
+end })
+funTab:CreateButton({ Name = "Flashlight Off", Callback = function()
+    local l = player.Character.Head:FindFirstChild("MyFlashlight")
+    if l then l:Destroy() end
+    Rayfield:Notify({Title="Fun",Content="Flashlight OFF!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Ghost Mode", Callback = function()
+    for _,v in ipairs(player.Character:GetChildren()) do
+        if v:IsA("BasePart") then v.Transparency = 0.8 end
+    end
+    Rayfield:Notify({Title="Fun",Content="Ghost mode!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Spark Explosion", Callback = function()
+    local p = Instance.new("ParticleEmitter")
+    p.Texture = "rbxassetid://243098098"
+    p.Lifetime = NumberRange.new(0.5)
+    p.Speed = NumberRange.new(40)
+    p.Rate = 1000
+    p.Parent = player.Character.HumanoidRootPart
+    wait(0.3)
+    p:Destroy()
+    Rayfield:Notify({Title="Fun",Content="Spark explosion!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Random Color Body", Callback = function()
+    for _,v in ipairs(player.Character:GetChildren()) do
+        if v:IsA("BasePart") then v.Color = Color3.fromHSV(math.random(),1,1) end
+    end
+    Rayfield:Notify({Title="Fun",Content="Random colors!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Body Neon", Callback = function()
+    for _,v in ipairs(player.Character:GetDescendants()) do
+        if v:IsA("BasePart") then v.Material = Enum.Material.Neon end
+    end
+    Rayfield:Notify({Title="Fun",Content="Neon mode!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Body Wood", Callback = function()
+    for _,v in ipairs(player.Character:GetDescendants()) do
+        if v:IsA("BasePart") then v.Material = Enum.Material.Wood end
+    end
+    Rayfield:Notify({Title="Fun",Content="Wood mode!",Duration=2})
+end })
+funTab:CreateButton({ Name = "Confetti Head", Callback = function()
+    local e = Instance.new("ParticleEmitter")
+    e.Texture = "rbxassetid://248625108"
+    e.Lifetime = NumberRange.new(1)
+    e.Rate = 500
+    e.Speed = NumberRange.new(8)
+    e.Parent = player.Character.Head
+    Rayfield:Notify({Title="Fun", Content="Confetti from your head!", Duration=2})
+    task.wait(1)
+    e:Destroy()
+end })
+
+
+miscTab:CreateButton({ Name = "Invisible", Callback = function()
+    for _,v in ipairs(player.Character:GetChildren()) do
+        if v:IsA("BasePart") then v.Transparency = 1 end
+    end
+    Rayfield:Notify({Title="Misc",Content="Now invisible!",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Visible", Callback = function()
+    for _,v in ipairs(player.Character:GetChildren()) do
+        if v:IsA("BasePart") then v.Transparency = 0 end
+    end
+    Rayfield:Notify({Title="Misc",Content="Visible again!",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Half Transparent", Callback = function()
+    for _,v in ipairs(player.Character:GetChildren()) do
+        if v:IsA("BasePart") then v.Transparency = 0.5 end
+    end
+    Rayfield:Notify({Title="Misc",Content="Half transparent!",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Random Teleport", Callback = function()
+    player.Character.HumanoidRootPart.CFrame = CFrame.new(math.random(-200,200),10,math.random(-200,200))
+    Rayfield:Notify({Title="Misc",Content="Random teleport!",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Change Head Size", Callback = function()
+    local head = player.Character:FindFirstChild("Head")
+    if head then head.Size = Vector3.new(4,4,4) end
+    Rayfield:Notify({Title="Misc",Content="Big brain time!",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Normal Head Size", Callback = function()
+    local head = player.Character:FindFirstChild("Head")
+    if head then head.Size = Vector3.new(2,1,1) end
+    Rayfield:Notify({Title="Misc",Content="Normal head restored.",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Spin Character", Callback = function()
+    local root = player.Character:FindFirstChild("HumanoidRootPart")
+    if root then
+        for i=1,20 do
+            root.CFrame = root.CFrame * CFrame.Angles(0, math.rad(18), 0)
+            task.wait(0.02)
+        end
+        Rayfield:Notify({Title="Misc", Content="Spun around!", Duration=2})
+    end
+end })
+miscTab:CreateButton({ Name = "Infinite Yield Admin", Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+    Rayfield:Notify({Title="Misc", Content="Infinite Yield loaded!", Duration=2})
+end })
+local noclipActive = false
+local noclipConnection = nil
+miscTab:CreateButton({
+    Name = "Noclip (ON/OFF)",
+    Callback = function()
+        noclipActive = not noclipActive
+        if noclipActive then
+            noclipConnection = game:GetService("RunService").Stepped:Connect(function()
+                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    for _,part in ipairs(player.Character:GetDescendants()) do
+                        if part:IsA("BasePart") and part.CanCollide then
+                            part.CanCollide = false
+                        end
+                    end
+                end
+            end)
+            Rayfield:Notify({Title="Misc", Content="Noclip activé !", Duration=2})
+        else
+            if noclipConnection then noclipConnection:Disconnect() end
+            if player.Character then
+                for _,part in ipairs(player.Character:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        part.CanCollide = true
+                    end
+                end
+            end
+            Rayfield:Notify({Title="Misc", Content="Noclip désactivé.", Duration=2})
+        end
+    end,
+})
+local flyActive = false
+local flyConnection = nil
+miscTab:CreateButton({
+    Name = "Fly (ON/OFF)",
+    Callback = function()
+        flyActive = not flyActive
+        local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+        if flyActive and humanoidRootPart then
+            local bodyVelocity = Instance.new("BodyVelocity")
+            bodyVelocity.Name = "FlyVelocity"
+            bodyVelocity.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+            bodyVelocity.Velocity = Vector3.new(0,0,0)
+            bodyVelocity.Parent = humanoidRootPart
+
+            flyConnection = game:GetService("RunService").RenderStepped:Connect(function()
+                local cam = workspace.CurrentCamera
+                local moveDir = Vector3.new()
+                if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.W) then
+                    moveDir = moveDir + cam.CFrame.LookVector
+                end
+                if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.S) then
+                    moveDir = moveDir - cam.CFrame.LookVector
+                end
+                if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.A) then
+                    moveDir = moveDir - cam.CFrame.RightVector
+                end
+                if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.D) then
+                    moveDir = moveDir + cam.CFrame.RightVector
+                end
+                if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.Space) then
+                    moveDir = moveDir + Vector3.new(0,1,0)
+                end
+                if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftShift) then
+                    moveDir = moveDir - Vector3.new(0,1,0)
+                end
+                if moveDir.Magnitude > 0 then
+                    bodyVelocity.Velocity = moveDir.Unit * 60
+                else
+                    bodyVelocity.Velocity = Vector3.new(0,0,0)
+                end
+            end)
+            Rayfield:Notify({Title="Misc", Content="Fly activé ! (WASD + SPACE + SHIFT)", Duration=2})
+        else
+            if humanoidRootPart then
+                local bv = humanoidRootPart:FindFirstChild("FlyVelocity")
+                if bv then bv:Destroy() end
+            end
+            if flyConnection then flyConnection:Disconnect() end
+            Rayfield:Notify({Title="Misc", Content="Fly désactivé.", Duration=2})
+        end
+    end,
+})
+miscTab:CreateButton({ Name = "Sit", Callback = function()
+    player.Character.Humanoid.Sit = true
+    Rayfield:Notify({Title="Misc",Content="You are sitting!",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Drop Hat", Callback = function()
+    local hat = player.Character:FindFirstChildOfClass("Accessory")
+    if hat then
+        hat.Parent = workspace
+        hat.Handle.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0,2,0)
+        Rayfield:Notify({Title="Misc",Content="Hat dropped!",Duration=2})
+    else
+        Rayfield:Notify({Title="Misc",Content="No hat found!",Duration=2})
+    end
+end })
+miscTab:CreateButton({ Name = "Reset Character", Callback = function()
+    player.Character:BreakJoints()
+    Rayfield:Notify({Title="Misc",Content="Character reset!",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Make Neon", Callback = function()
+    for _,v in ipairs(player.Character:GetDescendants()) do
+        if v:IsA("BasePart") then v.Material = Enum.Material.Neon end
+    end
+    Rayfield:Notify({Title="Misc",Content="Neon mode!",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Make Plastic", Callback = function()
+    for _,v in ipairs(player.Character:GetDescendants()) do
+        if v:IsA("BasePart") then v.Material = Enum.Material.Plastic end
+    end
+    Rayfield:Notify({Title="Misc",Content="Plastic mode!",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Make Wood", Callback = function()
+    for _,v in ipairs(player.Character:GetDescendants()) do
+        if v:IsA("BasePart") then v.Material = Enum.Material.Wood end
+    end
+    Rayfield:Notify({Title="Misc",Content="Wood mode!",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Make Ice", Callback = function()
+    for _,v in ipairs(player.Character:GetDescendants()) do
+        if v:IsA("BasePart") then v.Material = Enum.Material.Ice end
+    end
+    Rayfield:Notify({Title="Misc",Content="Ice mode!",Duration=2})
+end })
+miscTab:CreateButton({ Name = "Random Material", Callback = function()
+    local mats = {Enum.Material.Neon,Enum.Material.Wood,Enum.Material.Plastic,Enum.Material.Metal,Enum.Material.Ice}
+    for _,v in ipairs(player.Character:GetDescendants()) do
+        if v:IsA("BasePart") then v.Material = mats[math.random(1,#mats)] end
+    end
+    Rayfield:Notify({Title="Misc",Content="Random material applied!",Duration=2})
+end })
+
+miscTab:CreateLabel("Brookhaven Fun Showcase - MATHEOOO312")
