@@ -1,9 +1,9 @@
 
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 local Window = Rayfield:CreateWindow({
-    Name = "Brookhaven Fun Showcase",
+    Name = "Brookhaven(Beta)",
     LoadingTitle = "Loading magic...",
-    LoadingSubtitle = "Made by MATHEOOO312",
+    LoadingSubtitle = "Made by 💜|MATHEOOO312",
     ConfigurationSaving = {
         Enabled = true,
         FolderName = "BrookhavenFunShowcase"
